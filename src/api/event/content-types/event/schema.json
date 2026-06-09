@@ -65,6 +65,12 @@
       "relation": "manyToOne",
       "target": "api::location.location",
       "inversedBy": "events"
+    },
+    "club": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::club.club",
+      "inversedBy": "events"
     }
   }
 }
