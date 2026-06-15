@@ -71,6 +71,13 @@
       "relation": "manyToMany",
       "target": "api::event.event",
       "mappedBy": "attendiees"
+    },
+    "clubs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::club.club",
+      "private": true,
+      "mappedBy": "members"
     }
   }
 }

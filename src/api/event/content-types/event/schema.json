@@ -44,12 +44,6 @@
       "maxLength": 200,
       "required": true
     },
-    "attendiees": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "events"
-    },
     "membersOnly": {
       "type": "boolean",
       "pluginOptions": {
@@ -59,6 +53,12 @@
       },
       "required": true,
       "default": true
+    },
+    "attendiees": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "events"
     },
     "location": {
       "type": "relation",

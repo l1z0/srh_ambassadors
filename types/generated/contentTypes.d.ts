@@ -482,6 +482,16 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
           localized: false;
         };
       }>;
+    clubType: Schema.Attribute.Enumeration<
+      ['Hobby', 'Study', 'Sports', 'Career']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Hobby'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -497,6 +507,11 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::club.club'>;
+    members: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    > &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1157,6 +1172,8 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    clubs: Schema.Attribute.Relation<'manyToMany', 'api::club.club'> &
+      Schema.Attribute.Private;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;

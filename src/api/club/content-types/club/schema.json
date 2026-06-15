@@ -35,12 +35,6 @@
       "maxLength": 200,
       "required": true
     },
-    "events": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::event.event",
-      "mappedBy": "club"
-    },
     "clubPicture": {
       "type": "media",
       "pluginOptions": {
@@ -64,6 +58,35 @@
       },
       "required": true,
       "default": false
+    },
+    "clubType": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": "Hobby",
+      "enum": [
+        "Hobby",
+        "Study",
+        "Sports",
+        "Career"
+      ]
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "mappedBy": "club"
+    },
+    "members": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "private": true,
+      "inversedBy": "clubs"
     }
   }
 }
