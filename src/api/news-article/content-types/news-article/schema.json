@@ -4,10 +4,10 @@
   "info": {
     "singularName": "news-article",
     "pluralName": "news-articles",
-    "displayName": "News Article"
+    "displayName": "news"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -30,6 +30,15 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
+    "Article": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 1000
+    },
     "category": {
       "type": "enumeration",
       "pluginOptions": {
@@ -39,9 +48,30 @@
       },
       "required": true,
       "enum": [
-        "announcment",
-        "report"
+        "club",
+        "event",
+        "website",
+        "miscellaneous"
       ]
+    },
+    "membersOnly": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": false
+    },
+    "club": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::club.club"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::event.event"
     }
   }
 }

@@ -7,7 +7,7 @@
     "displayName": "event"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -34,7 +34,7 @@
       },
       "required": true
     },
-    "eventDescripton": {
+    "eventDescription": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
@@ -54,7 +54,7 @@
       "required": true,
       "default": true
     },
-    "attendiees": {
+    "attendees": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
@@ -71,6 +71,11 @@
       "relation": "manyToOne",
       "target": "api::club.club",
       "inversedBy": "events"
+    },
+    "host": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

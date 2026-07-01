@@ -448,7 +448,7 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
     singularName: 'club';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -496,9 +496,8 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
-    isAproved: Schema.Attribute.Boolean &
+    isApproved: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
-      Schema.Attribute.Private &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -510,8 +509,15 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
     members: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
-    > &
-      Schema.Attribute.Private;
+    >;
+    owner: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    pendingMembers: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -527,7 +533,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     singularName: 'event';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -535,7 +541,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    attendiees: Schema.Attribute.Relation<
+    attendees: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
     >;
@@ -550,7 +556,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    eventDescripton: Schema.Attribute.String &
+    eventDescription: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -570,6 +576,10 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 30;
       }>;
+    host: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
     location: Schema.Attribute.Relation<'manyToOne', 'api::location.location'>;
@@ -596,7 +606,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     singularName: 'location';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -664,12 +674,12 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
 export interface ApiNewsArticleNewsArticle extends Struct.CollectionTypeSchema {
   collectionName: 'news_articles';
   info: {
-    displayName: 'News Article';
+    displayName: 'news';
     pluralName: 'news-articles';
     singularName: 'news-article';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -677,25 +687,45 @@ export interface ApiNewsArticleNewsArticle extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    Article: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
     author: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    category: Schema.Attribute.Enumeration<['announcment', 'report']> &
+    category: Schema.Attribute.Enumeration<
+      ['club', 'event', 'website', 'miscellaneous']
+    > &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
+    club: Schema.Attribute.Relation<'oneToOne', 'api::club.club'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    event: Schema.Attribute.Relation<'oneToOne', 'api::event.event'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::news-article.news-article'
     >;
+    membersOnly: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     Title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1171,6 +1201,7 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    avatar: Schema.Attribute.Media<'images' | 'files'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     clubs: Schema.Attribute.Relation<'manyToMany', 'api::club.club'> &
       Schema.Attribute.Private;
@@ -1202,6 +1233,9 @@ export interface PluginUsersPermissionsUser
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    study_programme: Schema.Attribute.Enumeration<
+      ['Web Development', 'Illustration', 'Audio Design']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

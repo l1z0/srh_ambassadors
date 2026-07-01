@@ -70,7 +70,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::event.event",
-      "mappedBy": "attendiees"
+      "mappedBy": "attendees"
     },
     "clubs": {
       "type": "relation",
@@ -78,6 +78,22 @@
       "target": "api::club.club",
       "private": true,
       "mappedBy": "members"
+    },
+    "study_programme": {
+      "type": "enumeration",
+      "enum": [
+        "Web Development",
+        "Illustration",
+        "Audio Design"
+      ]
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }
