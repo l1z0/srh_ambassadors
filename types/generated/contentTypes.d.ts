@@ -474,7 +474,7 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 20;
+        maxLength: 50;
       }>;
     clubPicture: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.SetPluginOptions<{
@@ -483,7 +483,7 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
         };
       }>;
     clubType: Schema.Attribute.Enumeration<
-      ['Hobby', 'Study', 'Sports', 'Career']
+      ['Hobby', 'Study', 'Sports', 'Career', 'Social']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -495,7 +495,12 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     isApproved: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -509,15 +514,30 @@ export interface ApiClubClub extends Struct.CollectionTypeSchema {
     members: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     owner: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     pendingMembers: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -544,8 +564,18 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     attendees: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
-    >;
-    club: Schema.Attribute.Relation<'manyToOne', 'api::club.club'>;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    club: Schema.Attribute.Relation<'manyToOne', 'api::club.club'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -579,10 +609,20 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     host: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
-    location: Schema.Attribute.Relation<'manyToOne', 'api::location.location'>;
+    location: Schema.Attribute.Relation<'manyToOne', 'api::location.location'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     membersOnly: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -618,7 +658,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }> &
       Schema.Attribute.SetMinMax<
@@ -630,7 +670,12 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -660,7 +705,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }> &
       Schema.Attribute.DefaultTo<'campus'>;

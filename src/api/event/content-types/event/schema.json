@@ -58,24 +58,44 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "events"
+      "inversedBy": "events",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "location": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::location.location",
-      "inversedBy": "events"
+      "inversedBy": "events",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "club": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::club.club",
-      "inversedBy": "events"
+      "inversedBy": "events",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "host": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

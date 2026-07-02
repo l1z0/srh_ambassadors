@@ -22,7 +22,7 @@
           "localized": true
         }
       },
-      "maxLength": 20,
+      "maxLength": 50,
       "required": true
     },
     "clubDescription": {
@@ -71,30 +71,51 @@
         "Hobby",
         "Study",
         "Sports",
-        "Career"
+        "Career",
+        "Social"
       ]
     },
     "events": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::event.event",
-      "mappedBy": "club"
+      "mappedBy": "club",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "members": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "clubs"
+      "inversedBy": "clubs",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "owner": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "pendingMembers": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

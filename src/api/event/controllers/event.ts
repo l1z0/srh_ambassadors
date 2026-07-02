@@ -37,6 +37,7 @@ export default factories.createCoreController('api::event.event', ({ strapi }) =
     ctx.request.body.data = {
       ...ctx.request.body.data,
       host: userId,
+      attendees: { connect: [{ id: userId }] },
     };
 
     return super.create(ctx);
